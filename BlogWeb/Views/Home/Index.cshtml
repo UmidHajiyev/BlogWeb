@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BlogPost>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="overlay">
+    <span class="introw text pt-4">Welcome to personal blog site</span>
+</div>
+<div class="post-container">
+    @foreach (var item in Model)
+    {
+
+        <div class="post">
+            <img src="~/images/blog-post-03.jpg" style="width:100%; object-fit:cover" />
+            <div class="postdc pt-1">
+                <a src="#" class="text p-2" style="font-size:32px;color:#0C0504">@item.Title</a>
+                <p class="p-2 text" style="font-weight:400;color:#92935A">@Truncate(item.Description, 60)</p>
+                <button class="cta p-2">
+                    <span class="hover-underline-animation"> Continue Reading </span>
+                    <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
+                        <path transform="translate(30)" d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" data-name="Path 10" id="Path_10"></path>
+                    </svg>
+                </button>
+                <hr class="" />
+            </div>
+        </div>
+    }
+</div>
+
+@functions {
+    string Truncate(string text, int wordCount)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            return string.Empty;
+        }
+
+        string[] words = text.Split(' ');
+
+        if (words.Length <= wordCount)
+        {
+            return text;
+        }
+
+        return string.Join(' ', words.Take(wordCount)) + " ...";
+    }
+}

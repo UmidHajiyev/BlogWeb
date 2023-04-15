@@ -1,0 +1,33 @@
+﻿@using Blog.Models.ViewModel
+@model RegisterViewModel
+
+<div class="register-container">
+    <form method="post">
+        <div class="input-area">
+            <label class="label">Email address</label>
+            <input asp-for="Email" autocomplete="off" name="Email" id="Email" class="input" type="email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+            <div></div>
+        </div>
+        <div class="input-area">
+            <label asp-for="Name" class="label">Name</label>
+            <input asp-for="Name" autocomplete="off" name="Name" class="input" type="password">
+            <span asp-validation-for="Name" class="text-danger"></span>
+            <div></div>
+        </div>
+        <div class="input-area">
+            <label class="label">Password</label>
+            <input asp-for="Password" autocomplete="off" name="Password" id="Email" class="input" type="password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <div></div>
+        </div>
+        <div class="input-area">
+            <label class="label">Confirm Password</label>
+            <input asp-for="ConfirmPassword" autocomplete="off" name="ConfirmPassword" id="Email" class="input" type="password">
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            <div></div>
+        </div>
+        <button class="btn" type="submit">Register</button>
+    </form>
+</div>
+
