@@ -13,7 +13,7 @@ namespace Blog.DataAccess.Repository.IRepository
         void Add(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
-        T GetFirstorDefault(Expression<Func<T,bool>>? filter=null);
+        T GetFirstorDefault(Expression<Func<T,bool>>? filter=null, string? includeproperties = null);
 
     }
 }

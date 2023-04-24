@@ -41,9 +41,16 @@ namespace Blog.DataAccess.Repository
             return query.ToList();
         }
 
-        public T GetFirstorDefault(Expression<Func<T, bool>>? filter = null)
+        public T GetFirstorDefault(Expression<Func<T, bool>> filter , string? includeproperties = null)
         {
             IQueryable<T> query = dbSet;
+            if (!string.IsNullOrEmpty(includeproperties))
+            {
+                foreach (var item in includeproperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(item);
+                }
+            }
             T entity = query.FirstOrDefault(filter);
             return entity;
         }

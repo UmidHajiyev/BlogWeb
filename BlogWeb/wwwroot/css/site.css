@@ -7,6 +7,9 @@ html {
         font-size: 16px;
     }
 }
+main{
+    width:100%;
+}
 
 html {
     position: relative;
@@ -173,4 +176,14 @@ register-container{
 
 .input-group:hover .label, .input:focus {
     color: #05060fc2;
+}
+.postDetail{
+    display:flex;
+    align-items:center;
+    flex-direction:column
+}
+.detailAuthImg {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%
 }

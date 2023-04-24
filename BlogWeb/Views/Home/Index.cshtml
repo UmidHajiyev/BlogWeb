@@ -10,7 +10,7 @@
     {
 
         <div class="post">
-            <img src="~/images/blog-post-03.jpg" style="width:100%; object-fit:cover" />
+            <img src="@item.ImgUrl" style="width:100%; object-fit:cover" />
             <div class="postdc pt-1">
                 <a src="#" class="text p-2" style="font-size:32px;color:#0C0504">@item.Title</a>
                 <p class="p-2 text" style="font-weight:400;color:#92935A">@Truncate(item.Description, 60)</p>

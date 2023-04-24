@@ -1,6 +1,7 @@
 ﻿using Blog.DataAccess.Repository.IRepository;
 using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Specialized;
 using System.Diagnostics;
 
 namespace Blog.Controllers
@@ -20,6 +21,23 @@ namespace Blog.Controllers
             IEnumerable<BlogPost> posts = _unitofwork.Post.GetAll();
             return View(posts);
         }
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            BlogPost post = _unitofwork.Post.GetFirstorDefault(u => u.Id == id,includeproperties:"user");
+            return View(post);
+        }
+        [HttpGet]
+        public IActionResult CreatePost()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreatePost(BlogPost post)
+        {
+            return View();
+        }
+
 
         public IActionResult Privacy()
         {

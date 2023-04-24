@@ -1,0 +1,15 @@
+﻿@model BlogPost
+<div class="postDetail pt-3" style="width:100%">
+    <div style="width:90%">
+        <img src="\@Model.ImgUrl" style="width:100%; object-fit:cover" />
+    </div>
+    <div class="pt-3" style="width:90%">
+        <h1 class="text">@Model.Title</h1>
+        <span><img src="~/images/comment-author-02.jpg" class="detailAuthImg" /></span>
+        <span class="p-2">@Model.user.UserName</span>
+        <span>@Model.CreationTime.ToString("dd MMMMM, yyyy")</span>
+    </div>
+    <div class="pt-2" style="width:90%">
+        <span>@Model.Description</span>
+    </div>
+</div>

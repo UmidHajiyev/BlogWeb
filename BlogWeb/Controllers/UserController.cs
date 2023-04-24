@@ -26,18 +26,27 @@ namespace Blog.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            var user = _unitofwork.User.GetFirstorDefault(u => u.EmailAddress == model.Email);
-            if (user!=null)
+            var user = _unitofwork.User.GetFirstorDefault(u => u.Email == model.Email);
+            if (user != null)
             {
-                if ()
+                if (BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
                 {
-
-                }
                     await _signInManager.SignInAsync(user, isPersistent:false);
-
-
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Invalid Username or Password");
+                        return View();
+                    }
+                }
+                else
+                {
                     ModelState.AddModelError("", "Invalid Username or Password");
                     return View();
+                }
             }
             else
             {
@@ -45,7 +54,11 @@ namespace Blog.Controllers
                 return View();
             }
         }
-
+        public IActionResult SignOut()
+        {
+            _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
         // GET: UserController/Details/5
         public IActionResult Details(int id)
         {
@@ -69,10 +82,11 @@ namespace Blog.Controllers
                     string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
                     var user = new User
                     {
-                        EmailAddress = model.Email,
-                        UserName = model.Name,
-                        Password = hashedPassword,
-                        Role = "User"
+                        Email = model.Email,
+                        NormalizedEmail = model.Email.ToUpper(),
+                        UserName = model.Email,
+                        NormalizedUserName = model.Name.ToUpper(),
+                        PasswordHash = hashedPassword
                     };
                     _unitofwork.User.Add(user);
                     _unitofwork.Save();
