@@ -13,11 +13,6 @@ namespace Blog.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        [Display(Name = "Category")]
-        public int CategoryId { get; set; }
-        [ValidateNever]
-        public Category Category { get; set; }
         [Display(Name = "Author")]
         public string UserId { get; set; }
         [ValidateNever]

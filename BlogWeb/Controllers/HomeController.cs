@@ -18,7 +18,7 @@ namespace Blog.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<BlogPost> posts = _unitofwork.Post.GetAll();
+            IEnumerable<BlogPost> posts = _unitofwork.Post.GetAll(includeproperties:"user");
             return View(posts);
         }
         [HttpGet]
@@ -26,11 +26,6 @@ namespace Blog.Controllers
         {
             BlogPost post = _unitofwork.Post.GetFirstorDefault(u => u.Id == id,includeproperties:"user");
             return View(post);
-        }
-        [HttpGet]
-        public IActionResult CreatePost()
-        {
-            return View();
         }
         [HttpPost]
         public IActionResult CreatePost(BlogPost post)

@@ -20,7 +20,17 @@ namespace Blog.DataAccess.Repository
 
         public void Update(BlogPost post)
         {
-            _db.BlogPosts.Update(post);
+            if (post.ImgUrl!=null)
+            {
+                _db.BlogPosts.Update(post);
+            }
+            else
+            {
+                BlogPost postFromDb = _db.BlogPosts.FirstOrDefault(u=>u.Id==post.Id);
+                postFromDb.Title = post.Title;
+                postFromDb.Description = post.Description;
+                postFromDb.CategoryId = post.CategoryId;
+            }
         }
     }
 }

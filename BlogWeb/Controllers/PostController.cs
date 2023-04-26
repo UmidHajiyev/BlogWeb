@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlogWeb.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
-        public IActionResult Index()
+        public IActionResult CreatePost()
         {
+            
             return View();
         }
     }

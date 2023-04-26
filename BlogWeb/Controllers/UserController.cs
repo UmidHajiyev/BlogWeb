@@ -4,6 +4,7 @@ using Blog.Models.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 
 namespace Blog.Controllers
 {
@@ -31,16 +32,8 @@ namespace Blog.Controllers
             {
                 if (BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
                 {
-                    await _signInManager.SignInAsync(user, isPersistent:false);
-                    if (User.Identity.IsAuthenticated)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Invalid Username or Password");
-                        return View();
-                    }
+                    await _signInManager.SignInAsync(user,false);
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -54,7 +47,7 @@ namespace Blog.Controllers
                 return View();
             }
         }
-        public IActionResult SignOut()
+        public IActionResult Logout()
         {
             _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");

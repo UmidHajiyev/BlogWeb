@@ -10,5 +10,6 @@ namespace Blog.Models
 {
     public class User : IdentityUser
     {
+        public string imageUrl { get; set; }
     }
 }
