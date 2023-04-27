@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BlogPost>
+<div class="post-container">
+    @foreach (var item in Model)
+    {
+
+        <div class="post">
+            <img src="/@item.ImgUrl" style="width:100%; object-fit:cover" class="pt-4" />
+            <div class="postdc pt-1">
+                <a src="#" class="text" style="font-size:32px;color:#0C0504">@item.Title</a>
+                <div class="pt-1" style="width:90%">
+                    <span><img src="~/images/comment-author-02.jpg" class="detailAuthImg" /></span>
+                    <span class="p-2">@item.user.UserName</span>
+                    <span>@item.CreationTime.ToString("dd MMMMM, yyyy")</span>
+                </div>
+                <p class="p-2 text" style="font-weight:400;color:#92935A">@Truncate(item.Description, 60)</p>  
+                <a asp-controller="Home" asp-action="Details" asp-route-id="@item.Id" class="cta p-2">
+                    <span class="hover-underline-animation">Continue</span>
+                    <svg viewBox="0 0 46 16" height="10" width="30" xmlns="http://www.w3.org/2000/svg" id="arrow-horizontal">
+                        <path transform="translate(30)" d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" data-name="Path 10" id="Path_10"></path>
+                    </svg>
+                </a>
+                <a asp-controller="Post" asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('Are you sure?')" class="btn btn-danger" style="float:right">Delete</a>
+                <hr />
+            </div>
+        </div>
+    }
+</div>
+
+@functions {
+    string Truncate(string text, int wordCount)
+    {
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            return string.Empty;
+        }
+
+        string[] words = text.Split(' ');
+
+        if (words.Length <= wordCount)
+        {
+            return text;
+        }
+
+        return string.Join(' ', words.Take(wordCount)) + " ...";
+    }
+}

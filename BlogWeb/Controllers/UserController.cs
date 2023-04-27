@@ -72,18 +72,26 @@ namespace Blog.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
-                    var user = new User
+                    if (_unitofwork.User.GetFirstorDefault(u=>u.NormalizedEmail==model.Email.ToUpper())!=null)
                     {
-                        Email = model.Email,
-                        NormalizedEmail = model.Email.ToUpper(),
-                        UserName = model.Email,
-                        NormalizedUserName = model.Name.ToUpper(),
-                        PasswordHash = hashedPassword
-                    };
-                    _unitofwork.User.Add(user);
-                    _unitofwork.Save();
-                    return RedirectToAction("Login");
+                        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
+                        var user = new User
+                        {
+                            Email = model.Email,
+                            NormalizedEmail = model.Email.ToUpper(),
+                            UserName = model.Name,
+                            NormalizedUserName = model.Name.ToUpper(),
+                            PasswordHash = hashedPassword
+                        };
+                        _unitofwork.User.Add(user);
+                        _unitofwork.Save();
+                        return RedirectToAction("Login");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "This email already registered");
+                    }
+                    
                 }
                 else
                 {

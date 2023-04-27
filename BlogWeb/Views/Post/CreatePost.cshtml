@@ -1,24 +1,24 @@
 ﻿@using Blog.Models.ViewModel;
 @model CreatePostViewModel
 <div class="register-container p-4">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div class="input-area">
             <label asp-for="Title" class="label"></label>
-            <input asp-for="Title" autocomplete="off" name="Email" id="Email" class="input" type="email">
+            <input asp-for="Title" autocomplete="off" id="Email" class="input">
             <span asp-validation-for="Title" class="text-danger"></span>
             <div></div>
         </div>
         <div class="input-area">
             <label asp-for="Description" class="label"></label>
-            <textarea asp-for="Description" autocomplete="off" name="Name" class="large-input" type="password"></textarea>
+            <textarea asp-for="Description" autocomplete="off" class="large-input"></textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
             <div></div>
         </div>
         <div class="input-area">
             <label class="label">Image</label>
-            <input autocomplete="off" name="ConfirmPassword" id="Email" class="input" type="file">
+            <input asp-for="Img" autocomplete="off" class="input" type="file" accept=".jpg,.jpeg,.png">
             <div></div>
         </div>
-        <button class="btn" type="submit">Register</button>
+        <button class="btn" type="submit">Create</button>
     </form>
 </div>

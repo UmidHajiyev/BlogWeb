@@ -29,7 +29,6 @@ namespace Blog.DataAccess.Repository
                 BlogPost postFromDb = _db.BlogPosts.FirstOrDefault(u=>u.Id==post.Id);
                 postFromDb.Title = post.Title;
                 postFromDb.Description = post.Description;
-                postFromDb.CategoryId = post.CategoryId;
             }
         }
     }

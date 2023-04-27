@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,6 +15,6 @@ namespace Blog.Models.ViewModel
         [Required]
         public string Description { get; set; }
         [Required]
-        public string ImgUrl { get; set; }
+        public IFormFile Img { get; set; }
     }
 }
