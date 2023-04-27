@@ -72,7 +72,7 @@ namespace Blog.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (_unitofwork.User.GetFirstorDefault(u=>u.NormalizedEmail==model.Email.ToUpper())!=null)
+                    if (_unitofwork.User.GetFirstorDefault(u=>u.NormalizedEmail==model.Email.ToUpper())==null)
                     {
                         string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
                         var user = new User
