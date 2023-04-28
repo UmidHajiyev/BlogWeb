@@ -62,13 +62,30 @@ namespace BlogWeb.Controllers
             IEnumerable<BlogPost> posts = _unitofwork.Post.GetAll(u => u.UserId ==currentUserId ,"user");
             return View(posts);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int Id)
         {
             var post = _unitofwork.Post.GetFirstorDefault(u => u.Id == Id);
+            var comments = _unitofwork.Comment.GetAll(u => u.postId == Id);
+            _unitofwork.Comment.RemoveRange(comments);
             _unitofwork.Post.Remove(post);
             _unitofwork.Save();
             return RedirectToAction("PersonalPosts");
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddComment(string commentContent, int postIdNumber)
+        {
+            var newComment = new Comment
+            {
+                userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                postId = postIdNumber,
+                content = commentContent
+            };
+            _unitofwork.Comment.Add(newComment);
+            _unitofwork.Save();
+            return RedirectToAction("Details", "Home", new {@id=postIdNumber});
+        }
     }
 }

@@ -1,15 +1,39 @@
-﻿@model BlogPost
+﻿@using Blog.Models.ViewModel;
+@model PostDetailViewModel
 <div class="postDetail pt-3" style="width:100%">
     <div style="width:90%">
-        <img src="\@Model.ImgUrl" style="width:100%; object-fit:cover" />
+        <img src="\@Model.post.ImgUrl" style="width:100%; height:90vh; object-fit:contain" />
     </div>
     <div class="pt-3" style="width:90%">
-        <h1 class="text">@Model.Title</h1>
-        <span class="p-2">@Model.user.UserName</span>
-        <span>@Model.CreationTime.ToString("dd MMMMM, yyyy")</span>
+        <h1 class="text">@Model.post.Title</h1>
+        <span class="p-2">@Model.post.user.UserName</span>
+        <span>@Model.post.CreationTime.ToString("dd MMMMM, yyyy")</span>
     </div>
     <div class="pt-2" style="width:90%">
-        <span>@Model.Description</span>
+        <span>@Model.post.Description</span>
+        <hr />
     </div>
-    <a asp-route-id="@Model.Id" src=""></a>
+    <div class="commentSection">
+        <div class="commentsArea">
+            <h2 class="m-2">Comments</h2>
+            @foreach (var item in Model.comments)
+            {
+                <div class="comment">
+                    <h4>@item.user.UserName</h4>
+                    <span style="max-width:100%;">@item.content</span>
+                </div>
+            }
+        </div>
+        <div class="addComment">
+            <form asp-controller="Post" asp-action="AddComment" method="post">
+                <div class="input-area mt-2">
+                    <label class="label">Comment</label>
+                    <input name="postIdNumber" value="@Model.post.Id" hidden/>
+                    <textarea style="max-height:33vh" name="commentContent" autocomplete="off" class="large-input text"></textarea>
+                    <div></div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3 mb-3" style="float:right">Share</button>
+            </form>
+        </div>
+    </div>
 </div>

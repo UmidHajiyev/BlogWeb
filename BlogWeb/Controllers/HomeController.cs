@@ -1,5 +1,6 @@
 ﻿using Blog.DataAccess.Repository.IRepository;
 using Blog.Models;
+using Blog.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -24,8 +25,12 @@ namespace Blog.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            BlogPost post = _unitofwork.Post.GetFirstorDefault(u => u.Id == id,includeproperties:"user");
-            return View(post);
+            var postDetail = new PostDetailViewModel
+            {
+                post = _unitofwork.Post.GetFirstorDefault(u => u.Id == id, includeproperties: "user"),
+                comments = _unitofwork.Comment.GetAll(u => u.postId == id, includeproperties: "user")
+            };
+            return View(postDetail);
         }
         [HttpPost]
         public IActionResult CreatePost(BlogPost post)

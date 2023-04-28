@@ -18,7 +18,11 @@
                         <path transform="translate(30)" d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" data-name="Path 10" id="Path_10"></path>
                     </svg>
                 </a>
-                <a asp-controller="Post" asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('Are you sure?')" class="btn btn-danger" style="float:right">Delete</a>
+                <form asp-controller="Post" asp-action="Delete" method="post" class="mb-3">
+                    <input name="Id" value="@item.Id" hidden>
+                    <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger" style="float:right">Delete</button>
+                </form>
+                
                 <hr />
             </div>
         </div>

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Blog.DataAccess.Repository.IRepository
 {
-    public interface ICategoryRepository : IRepository<Category>
+    public interface ICommentRepository : IRepository<Comment>
     {
-        void Update(Category category);
+        void Update(Comment comment);
     }
 }

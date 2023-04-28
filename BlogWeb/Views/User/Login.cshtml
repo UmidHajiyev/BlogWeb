@@ -5,17 +5,30 @@
     <form method="post">
         <div class="input-area">
             <label class="label">Email address</label>
-            <input asp-for="Email" autocomplete="off" name="Email" id="Email" class="input" type="email">
+            <input asp-for="Email" autocomplete="off" name="Email" required id="Email" class="input" type="email">
             <span asp-validation-for="Email" class="text-danger"></span>
             <div></div>
         </div>
         <div class="input-area">
             <label class="label">Password</label>
-            <input asp-for="Password" autocomplete="off" name="Password" id="Email" class="input" type="password">
+            <input asp-for="Password" autocomplete="off" name="Password" id="Email" class="input" required type="password">
             <span asp-validation-for="Password" class="text-danger"></span>
             <div></div>
         </div>
-        <button class="btn" type="submit">Log in</button>
+        <div class="input-area pb-2">
+            <button class="btn btn-primary" type="submit">Log in</button>
+        </div>
     </form>
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
 </div>
 

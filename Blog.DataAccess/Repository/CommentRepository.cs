@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 
 namespace Blog.DataAccess.Repository
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class CommentRepository : Repository<Comment>, ICommentRepository
     {
         private readonly ApplicationDbContext _db;
-        public CategoryRepository(ApplicationDbContext db) : base(db)
+        public CommentRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
 
-        public void Update(Category category)
+        public void Update(Comment comment)
         {
-            _db.Categories.Update(category);
+            _db.Update(comment);
         }
     }
 }

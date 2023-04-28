@@ -28,7 +28,7 @@ namespace Blog.DataAccess
                                            .Ignore(c => c.PhoneNumberConfirmed)
                                            .Ignore(c => c.EmailConfirmed);
         }
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<BlogPost> BlogPosts { get; set; }
         public DbSet<User> Users { get; set; }
     }

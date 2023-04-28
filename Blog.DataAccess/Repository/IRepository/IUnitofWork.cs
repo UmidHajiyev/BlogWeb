@@ -9,7 +9,7 @@ namespace Blog.DataAccess.Repository.IRepository
 {
     public interface IUnitofWork
     {
-        ICategoryRepository Category { get; }
+        ICommentRepository Comment { get; }
         IBlogPostRepository Post { get; }
         IUserRepository User { get; }
         public void Save();

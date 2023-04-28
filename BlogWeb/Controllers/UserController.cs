@@ -27,24 +27,32 @@ namespace Blog.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            var user = _unitofwork.User.GetFirstorDefault(u => u.Email == model.Email);
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                if (BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
+                var user = _unitofwork.User.GetFirstorDefault(u => u.Email == model.Email);
+                if (user != null)
                 {
-                    await _signInManager.SignInAsync(user,false);
-                    return RedirectToAction("Index", "Home");
+                    if (BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
+                    {
+                        await _signInManager.SignInAsync(user, false);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Invalid Username or Password");
+                        return View(model);
+                    }
                 }
                 else
                 {
                     ModelState.AddModelError("", "Invalid Username or Password");
-                    return View();
+                    return View(model);
                 }
             }
             else
             {
-                ModelState.AddModelError("","Invalid Username or Password");
-                return View();
+                ModelState.AddModelError("", "Invalid Username or Password");
+                return View(model);
             }
         }
         public IActionResult Logout()

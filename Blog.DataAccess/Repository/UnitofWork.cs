@@ -13,13 +13,12 @@ namespace Blog.DataAccess.Repository
         public UnitofWork(ApplicationDbContext db)
         {
             _db = db;
-            Category = new CategoryRepository(_db);
+            Comment = new CommentRepository(_db);
             Post = new BlogPostRepository(_db);
             User = new UserRepository(_db);
         }
 
-        public ICategoryRepository Category { get; private set; }
-
+        public ICommentRepository Comment { get; private set; }
         public IUserRepository User { get; private set; }
         public IBlogPostRepository Post { get; private set; }
 
